@@ -1,13 +1,21 @@
 package com.example.proecttask.models;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "statistics")
 public class Statistic {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "statistic_id")
     private int id;
 
+    @Column(name = "country")
     private String country;
 
+    @Column(name = "country_code")
     private String countryCode;
 
     private int newConfirmed;
