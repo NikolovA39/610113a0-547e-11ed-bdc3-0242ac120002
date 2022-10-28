@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface StatisticService {
 
-    List<Statistic> getAll();
-
     void create(Statistic statistic);
 
     Statistic getLastRowInTable();

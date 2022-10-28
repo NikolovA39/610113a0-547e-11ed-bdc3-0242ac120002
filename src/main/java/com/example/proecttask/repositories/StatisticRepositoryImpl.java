@@ -23,14 +23,6 @@ public class StatisticRepositoryImpl implements StatisticRepository {
     }
 
     @Override
-    public List<Statistic> getAll() {
-        try (Session session = sessionFactory.openSession()) {
-            Query<Statistic> query = session.createQuery("from Statistic", Statistic.class);
-            return query.list();
-        }
-    }
-
-    @Override
     public void create(Statistic statistic) {
         try (Session session = sessionFactory.openSession()) {
             session.save(statistic);
@@ -43,7 +35,6 @@ public class StatisticRepositoryImpl implements StatisticRepository {
             Statistic statistic = (Statistic) session.createQuery(
                     "from Statistic ORDER BY id desc")
                     .setMaxResults(1).uniqueResult();
-
             return statistic;
         }
     }

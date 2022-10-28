@@ -28,7 +28,6 @@ public class Statistic {
     private int newRecovered;
     @Column(name = "total_recovered")
     private int totalRecovered;
-
     @Column(name = "date")
     private String date;
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class StatisticDAO {
 
+    public static final String NO_ROWS_EXIST_IN_DATABASE = "No rows exist in database";
     private final NetworkDAO networkDAO;
     private final StatisticService statisticService;
 
@@ -22,14 +23,19 @@ public class StatisticDAO {
     public void fetchManual() throws Exception {
 
         String rawJson = networkDAO.request("https://api.covid19api.com/summary");
-        //ToDo exceptions?
         JSONObject root = new JSONObject(rawJson);
 
-        String lastUpdateResource = root.getString("Date");
-        Statistic lastUpdateDB = statisticService.getLastRowInTable();
-        if (lastUpdateResource.equals(lastUpdateDB.getDate())) {
-            return;
+        try {
+            String lastUpdateResource = root.getString("Date");
+            Statistic lastUpdateDB = statisticService.getLastRowInTable();
+
+            if (lastUpdateResource.equals(lastUpdateDB.getDate())) {
+                return;
+            }
+        } catch (NullPointerException e) {
+            System.out.println(NO_ROWS_EXIST_IN_DATABASE);
         }
+
 
         JSONArray statistics = root.getJSONArray("Countries");
         for (int i = 0; i < statistics.length(); i++) {
@@ -55,7 +61,6 @@ public class StatisticDAO {
             statistic.setTotalDeaths(totalDeaths);
             statistic.setNewRecovered(newRecovered);
             statistic.setTotalRecovered(totalRecovered);
-
             statistic.setDate(date);
 
             statisticService.create(statistic);

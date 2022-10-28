@@ -1,4 +1,4 @@
-package com.example.proecttask.controllers;
+package com.example.proecttask.controllers.rest;
 
 import com.example.proecttask.dao.StatisticDAO;
 import com.example.proecttask.models.FilterOptionsStatistic;
@@ -16,39 +16,34 @@ import java.util.Optional;
 @RequestMapping("/api/statistics")
 public class StatisticController {
 
-    @Autowired
+
     private final StatisticService statisticService;
     private final StatisticDAO statisticDAO;
 
-
+    @Autowired
     public StatisticController(StatisticService statisticService, StatisticDAO statisticDAO) {
         this.statisticService = statisticService;
         this.statisticDAO = statisticDAO;
     }
 
-    @GetMapping()
-    public List<Statistic> getAll() throws Exception {
-        statisticDAO.fetchManual();
-        return statisticService.getAll();
-    }
-
-    @GetMapping("/lastRow")
-    public Statistic getLastRowInTable() {
-        return statisticService.getLastRowInTable();
-    }
-
     @GetMapping("/country/BG")
     public List<Statistic> filterByCountryBG(
-            Optional<String> countryCode) {
+            Optional<String> countryCode) throws Exception {
+        getData();
         countryCode = Optional.of("BG");
         return statisticService.filter(new FilterOptionsStatistic(countryCode));
     }
 
     @GetMapping("/country/DE")
     public List<Statistic> filterByCountryDE(
-            Optional<String> countryCode) {
+            Optional<String> countryCode) throws Exception {
+        getData();
         countryCode = Optional.of("DE");
         return statisticService.filter(new FilterOptionsStatistic(countryCode));
+    }
+
+    private void getData() throws Exception {
+        statisticDAO.fetchManual();
     }
 }
 

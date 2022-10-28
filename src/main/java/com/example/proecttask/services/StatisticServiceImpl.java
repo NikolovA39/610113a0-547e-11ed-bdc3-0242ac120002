@@ -20,11 +20,6 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public List<Statistic> getAll() {
-        return statisticRepository.getAll();
-    }
-
-    @Override
     public void create(Statistic statistic) {
         statisticRepository.create(statistic);
     }
