@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../static/styles.css" th:href="@{/styles.css}" rel="stylesheet">
+</head>
+<body>
+<section class="page-section" style="margin-left: 10px;margin-right: 10px;">
+
+    <h4 class="text-center" >Bulgaria BG</h4>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">NewConfirmed</th>
+            <th scope="col">TotalConfirmed</th>
+            <th scope="col">NewDeaths</th>
+            <th scope="col">TotalDeaths</th>
+            <th scope="col">NewRecovered</th>
+            <th scope="col">TotalRecovered</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="country : ${getByCountryBG}">
+            <td th:text="${country.getNewConfirmed()}">NewConfirmed</td>
+            <td th:text="${country.getTotalConfirmed()}">TotalConfirmed</td>
+            <td th:text="${country.getNewDeaths()}">NewDeaths</td>
+            <td th:text="${country.getTotalDeaths()}">TotalDeaths</td>
+            <td th:text="${country.getNewRecovered()}">NewRecovered</td>
+            <td th:text="${country.getTotalRecovered()}">TotalRecovered</td>
+            <td th:text="${country.getDate()}">Date</td>
+            </div>
+        </tr>
+        </tbody>
+    </table>
+</section>
+</body>
+</html>
