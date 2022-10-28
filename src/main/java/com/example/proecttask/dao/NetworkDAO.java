@@ -1,5 +1,7 @@
 package com.example.proecttask.dao;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -7,6 +9,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+@Component
 public class NetworkDAO {
     public String request(String endpoint) throws Exception {
         StringBuilder sb = new StringBuilder();
